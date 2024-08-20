@@ -57,7 +57,7 @@ namespace MasyoLab.Editor.FavoritesAsset
 
             if (GUILayout.Button("Readme", m_linkLabel.Inst, GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
             {
-                Utils.OpenURL("https://github.com/MasyoLab/UnityTools-FavoritesAsset/blob/master/README.md");
+                Utils.OpenURL("https://github.com/SiberWang/UnityTools-FavoritesAsset/blob/master/README.md");
             }
             Utils.MouseCursorLink();
 

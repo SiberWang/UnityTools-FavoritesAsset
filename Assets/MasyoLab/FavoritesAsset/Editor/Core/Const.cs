@@ -86,6 +86,11 @@ namespace MasyoLab.Editor.FavoritesAsset
         /// エラーアイコン
         /// </summary>
         public const string ICON_ERRORICON = "d_console.erroricon";
+        
+        /// <summary>
+        /// Tab Button Icon
+        /// </summary>
+        public const string ICON_TABBUTTONICON = "d_UnityEditor.ConsoleWindow";
 
         public const int GUI_LAYOUT_HEIGHT = 22;
     }

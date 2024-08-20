@@ -66,6 +66,8 @@ namespace MasyoLab.Editor.FavoritesAsset
         private BaseWindow m_window = null;
         private Pipeline m_pipeline = new Pipeline();
 
+        private Vector2 scrollPosition;
+
         /// <summary>
         /// ウィンドウを追加
         /// </summary>
@@ -138,6 +140,7 @@ namespace MasyoLab.Editor.FavoritesAsset
         private void OnGUI()
         {
             DrawToolbar();
+            DrawTabToolbar();
             UpdateGUIAction();
         }
 
@@ -204,21 +207,56 @@ namespace MasyoLab.Editor.FavoritesAsset
                 }
 
                 var selectIndex = EditorGUILayout.Popup(m_pipeline.Group.Index, m_pipeline.Group.GroupNamesForMenu);
-                switch (m_pipeline.Group.SelectGroupByIndex(selectIndex))
-                {
-                    case GroupSelectEventEnum.Unselect:
-                        break;
-                    case GroupSelectEventEnum.Select:
-                        Reload();
-                        break;
-                    case GroupSelectEventEnum.Open:
-                        GetWindowClass<GroupWindow>();
-                        break;
-                    default:
-                        break;
-                }
+                ExecuteSelectEvent(selectIndex);
 
                 GUILayout.FlexibleSpace();
+            }
+        }
+
+        /// <summary>
+        /// Tab Toolbar - Show favorites on window
+        /// </summary>
+        private void DrawTabToolbar()
+        {
+            // Top Scroll
+            GUIStyle tabStyle         = EditorStyles.toolbar;
+            float    scrollViewHeight = tabStyle.fixedHeight * 1.65f;
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Width(position.width), GUILayout.Height(scrollViewHeight));
+            
+            using (new EditorGUILayout.HorizontalScope(tabStyle))
+            {
+                var namesList = new List<string>(m_pipeline.Group.GroupNamesForMenu);
+                var content   = LanguageData.GetText(m_pipeline.Setting.Language, TextEnum.AddNewFavoriteGroup);
+                namesList.RemoveAll(name => name == string.Empty || name == content);
+
+                for (int i = 0; i < namesList.Count; i++)
+                {
+                    var groupName     = namesList[i].Replace($"{i}: ", "");
+                    var icon          = EditorGUIUtility.IconContent(CONST.ICON_TABBUTTONICON).image as Texture2D;
+                    var buttonContent = new GUIContent(groupName, icon);
+                    if (GUILayout.Button(buttonContent, EditorStyles.toolbarButton)) 
+                        ExecuteSelectEvent(i);
+                }
+                GUILayout.FlexibleSpace();
+            }
+            
+            EditorGUILayout.EndScrollView();
+        }
+        
+        private void ExecuteSelectEvent(int selectIndex)
+        {
+            switch (m_pipeline.Group.SelectGroupByIndex(selectIndex))
+            {
+                case GroupSelectEventEnum.Unselect:
+                    break;
+                case GroupSelectEventEnum.Select:
+                    Reload();
+                    break;
+                case GroupSelectEventEnum.Open:
+                    GetWindowClass<GroupWindow>();
+                    break;
+                default:
+                    break;
             }
         }
 
