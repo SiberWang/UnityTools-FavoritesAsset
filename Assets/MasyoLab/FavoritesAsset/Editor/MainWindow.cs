@@ -67,6 +67,7 @@ namespace MasyoLab.Editor.FavoritesAsset
         private Pipeline m_pipeline = new Pipeline();
 
         private Vector2 scrollPosition;
+        private int     selectedIndex;
 
         /// <summary>
         /// ウィンドウを追加
@@ -233,9 +234,16 @@ namespace MasyoLab.Editor.FavoritesAsset
                 {
                     var groupName     = namesList[i].Replace($"{i}: ", "");
                     var icon          = EditorGUIUtility.IconContent(CONST.ICON_TABBUTTONICON).image as Texture2D;
+                    
+                    GUIStyle buttonStyle   = new GUIStyle(EditorStyles.toolbarButton);
+                    buttonStyle.normal.textColor = selectedIndex == i ? Color.yellow : Color.white;
+                    buttonStyle.hover.textColor  = selectedIndex == i ? Color.yellow : Color.white;
+                    buttonStyle.fontStyle        = selectedIndex == i ? FontStyle.Bold : FontStyle.Normal;
                     var buttonContent = new GUIContent(groupName, icon);
-                    if (GUILayout.Button(buttonContent, EditorStyles.toolbarButton)) 
+                    if (GUILayout.Button(buttonContent, buttonStyle))
+                    {
                         ExecuteSelectEvent(i);
+                    }
                 }
                 GUILayout.FlexibleSpace();
             }
@@ -258,6 +266,7 @@ namespace MasyoLab.Editor.FavoritesAsset
                 default:
                     break;
             }
+            selectedIndex = selectIndex;
         }
 
         private void OpenMenu()
