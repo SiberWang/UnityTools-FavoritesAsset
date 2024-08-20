@@ -51,6 +51,8 @@ namespace MasyoLab.Editor.FavoritesAsset
         CopyFavoriteGroupFeatureDescription,
         CopyFavoriteGroupPulldownDescription,
         CopyFavoriteGroupReplicationButton,
+        WarningClear,
+        AlreadyClear,
     }
 
     struct LanguageData
@@ -88,6 +90,8 @@ namespace MasyoLab.Editor.FavoritesAsset
             { TextEnum.CopyFavoriteGroupFeatureDescription , "Duplicate the contents of the Favorite Group" },
             { TextEnum.CopyFavoriteGroupPulldownDescription , "Select a group" },
             { TextEnum.CopyFavoriteGroupReplicationButton , "Duplicate" },
+            { TextEnum.WarningClear, "<Please press again to confirm deletion>"},
+            { TextEnum.AlreadyClear, "<Successfully cleared !>"}
         };
 
         private static IReadOnlyDictionary<TextEnum, string> TEXT_JA_DICT = new Dictionary<TextEnum, string>()
@@ -117,6 +121,8 @@ namespace MasyoLab.Editor.FavoritesAsset
             { TextEnum.CopyFavoriteGroupFeatureDescription , "お気に入りグループの内容を複製します" },
             { TextEnum.CopyFavoriteGroupPulldownDescription , "グループを選択" },
             { TextEnum.CopyFavoriteGroupReplicationButton , "複製" },
+            { TextEnum.WarningClear, "<削除を確認するためにもう一度押してください>"},
+            { TextEnum.AlreadyClear, "<正常にクリアしました !>"}
         };
         
         private static IReadOnlyDictionary<TextEnum, string> TEXT_TC_DICT = new Dictionary<TextEnum, string>()
@@ -146,6 +152,8 @@ namespace MasyoLab.Editor.FavoritesAsset
             { TextEnum.CopyFavoriteGroupFeatureDescription , "複製收藏夾群組的內容" },
             { TextEnum.CopyFavoriteGroupPulldownDescription , "選擇一個群組" },
             { TextEnum.CopyFavoriteGroupReplicationButton , "複製" },
+            { TextEnum.WarningClear, "<請再按一次以確認刪除>"},
+            { TextEnum.AlreadyClear, "<成功清除 !>"}
         };
 
         public static string GetText(LanguageEnum lang, TextEnum text)

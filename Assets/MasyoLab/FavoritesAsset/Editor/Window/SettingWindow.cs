@@ -16,7 +16,10 @@ namespace MasyoLab.Editor.FavoritesAsset
     class SettingWindow : BaseWindow
     {
         private Vector2 m_scrollVec = Vector2.zero;
-
+        
+        private bool isDeleteButtonPressedOnce      = false;
+        private bool isAlreadyClear = false;
+        
         public override void OnGUI()
         {
             m_scrollVec = GUILayout.BeginScrollView(m_scrollVec);
@@ -39,13 +42,44 @@ namespace MasyoLab.Editor.FavoritesAsset
                 // お気に入り全解除
                 GUILayout.Label($"{LanguageData.GetText(m_pipeline.Setting.Language, TextEnum.FavoriteGroup)} : " +
                     $"{m_pipeline.Group.GetGroupNameByGUID(m_pipeline.Group.SelectGroupFileName)}");
+                
+                GUILayout.BeginHorizontal();
                 var content = new GUIContent(LanguageData.GetText(m_pipeline.Setting.Language, TextEnum.UnlockAll));
                 if (GUILayout.Button(content, GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
                 {
-                    m_pipeline.Favorites.RemoveAll();
-                    m_pipeline.Favorites.SaveFavoritesData();
-                    (m_pipeline.Root as MainWindow).Reload();
+                    if (isDeleteButtonPressedOnce)
+                    {
+                        m_pipeline.Favorites.RemoveAll();
+                        m_pipeline.Favorites.SaveFavoritesData();
+                        (m_pipeline.Root as MainWindow).Reload();
+                        isDeleteButtonPressedOnce = false;
+                        isAlreadyClear            = true;
+                    }
+                    else
+                    {
+                        isDeleteButtonPressedOnce = true;
+                        isAlreadyClear            = false;
+                    }
                 }
+                
+                // Warning again: Prevent accidental touch
+                if (isDeleteButtonPressedOnce)
+                {
+                    GUIStyle warningStyle = new GUIStyle(GUI.skin.label);
+                    warningStyle.normal.textColor = Color.yellow;
+                    var warning = new GUIContent(LanguageData.GetText(m_pipeline.Setting.Language, TextEnum.WarningClear));
+                    GUILayout.Label(warning, warningStyle, GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false));
+                }
+
+                if (isAlreadyClear)
+                {
+                    GUIStyle alreadyClearStyle = new GUIStyle(GUI.skin.label);
+                    alreadyClearStyle.normal.textColor = Color.green;
+                    var alreadyClear = new GUIContent(LanguageData.GetText(m_pipeline.Setting.Language, TextEnum.AlreadyClear));
+                    GUILayout.Label(alreadyClear, alreadyClearStyle, GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false));
+                }
+                
+                GUILayout.EndHorizontal();
             }
 
             Utils.GUILine();
@@ -80,6 +114,12 @@ namespace MasyoLab.Editor.FavoritesAsset
 
             Utils.GUILine();
             GUILayout.EndScrollView();
+        }
+
+        public override void Close()
+        {
+            isDeleteButtonPressedOnce = false;
+            isAlreadyClear            = false;
         }
     }
 }
