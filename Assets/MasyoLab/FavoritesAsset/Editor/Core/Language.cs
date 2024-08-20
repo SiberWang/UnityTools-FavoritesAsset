@@ -18,6 +18,7 @@ namespace MasyoLab.Editor.FavoritesAsset
     {
         English,
         Japanese,
+        TradionnalChinese
     }
 
     /// <summary>
@@ -57,6 +58,7 @@ namespace MasyoLab.Editor.FavoritesAsset
         public static readonly string[] LANGUAGE = {
             "English",
             "Japanese",
+            "Tradionnal Chinese",
         };
 
         private static IReadOnlyDictionary<TextEnum, string> TEXT_EN_DICT = new Dictionary<TextEnum, string>()
@@ -116,6 +118,35 @@ namespace MasyoLab.Editor.FavoritesAsset
             { TextEnum.CopyFavoriteGroupPulldownDescription , "グループを選択" },
             { TextEnum.CopyFavoriteGroupReplicationButton , "複製" },
         };
+        
+        private static IReadOnlyDictionary<TextEnum, string> TEXT_TC_DICT = new Dictionary<TextEnum, string>()
+        {
+            { TextEnum.Language , "編輯器語言" },
+            { TextEnum.DragAndDrop , "收藏檔案可拖移至此 ↓" },
+            { TextEnum.UnlockAll , "清除所有收藏" },
+            { TextEnum.NumFav , "收藏" },
+            { TextEnum.Import , "載入" },
+            { TextEnum.Export , "另存為" },
+            { TextEnum.Menu , "選單" },
+            { TextEnum.Home , "主頁" },
+            { TextEnum.Setting , "設置" },
+            { TextEnum.Help , "幫助" },
+            { TextEnum.ImportAndExportTarget , "導入與導出目標" },
+            { TextEnum.ExportTarget , "導出目標" },
+            { TextEnum.ImportTarget , "導入目標" },
+            { TextEnum.Filename , "檔案名稱" },
+            { TextEnum.SourceCode , "源代碼" },
+            { TextEnum.License , "許可證" },
+            { TextEnum.LatestRelease , "最新版本" },
+            { TextEnum.Link , "連結" },
+            { TextEnum.AddNewFavoriteGroup , "新增收藏夾群組..." },
+            { TextEnum.FavoriteGroup , "收藏夾群組" },
+            { TextEnum.FavoriteGroupIsEmpty , "收藏夾群組為空" },
+            { TextEnum.CopyFavoriteGroup , "複製收藏夾群組" },
+            { TextEnum.CopyFavoriteGroupFeatureDescription , "複製收藏夾群組的內容" },
+            { TextEnum.CopyFavoriteGroupPulldownDescription , "選擇一個群組" },
+            { TextEnum.CopyFavoriteGroupReplicationButton , "複製" },
+        };
 
         public static string GetText(LanguageEnum lang, TextEnum text)
         {
@@ -125,6 +156,8 @@ namespace MasyoLab.Editor.FavoritesAsset
                     return TEXT_EN_DICT[text];
                 case LanguageEnum.Japanese:
                     return TEXT_JA_DICT[text];
+                case LanguageEnum.TradionnalChinese:
+                    return TEXT_TC_DICT[text];
                 default:
                     return TEXT_EN_DICT[text];
             }
