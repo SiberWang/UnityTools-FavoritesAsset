@@ -45,7 +45,7 @@ namespace MasyoLab.Editor.FavoritesAsset
         /// <summary>
         /// 閉じるアイコン
         /// </summary>
-        public const string ICON_CLOSE = "winbtn_win_close";
+        public const string ICON_CLOSE = "P4_DeletedLocal";
 
         /// <summary>
         /// FolderAdded
