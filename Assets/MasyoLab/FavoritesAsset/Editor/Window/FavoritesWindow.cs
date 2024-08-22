@@ -290,6 +290,7 @@ namespace MasyoLab.Editor.FavoritesAsset
         /// <param name="info"></param>
         private void OpenAsset(AssetData info)
         {
+            Selection.activeObject = null;
             // シーンアセットを開こうとしている
             if (Path.GetExtension(info.Path).Equals(CONST.UNITY_EXT))
             {
@@ -303,7 +304,11 @@ namespace MasyoLab.Editor.FavoritesAsset
             }
 
             // アセットを開く
-            AssetDatabase.OpenAsset(info.GetObject());
+            var asset      = AssetDatabase.LoadMainAssetAtPath(info.Path);
+            var prefabType = PrefabUtility.GetPrefabType(asset);
+            if (prefabType == PrefabType.Prefab) 
+                AssetDatabase.OpenAsset(info.GetObject());
+            Selection.activeObject = AssetDatabase.LoadMainAssetAtPath(info.Path);
         }
 
         /// <summary>
