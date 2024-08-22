@@ -30,14 +30,22 @@ namespace MasyoLab.Editor.FavoritesAsset
                 var isUpdate = m_pipeline.Setting.Language != newLanguage;
                 m_pipeline.Setting.Language = newLanguage;
                 if (isUpdate)
-                {
+                { 
+                    m_pipeline.Group.UpdateGroupNameList();
+                }
+                
+                var selectNameEnumLabel = $"{LanguageData.GetText(m_pipeline.Setting.Language, TextEnum.ShowNameType)}";
+                var newNameEnum = (ShowNameEnum)EditorGUILayout.EnumPopup(selectNameEnumLabel, m_pipeline.Setting.ShowNameEnum);
+                var isUpdateNameEnum = m_pipeline.Setting.ShowNameEnum != newNameEnum;
+                m_pipeline.Setting.ShowNameEnum = newNameEnum;
+                if (isUpdateNameEnum)
+                { 
                     m_pipeline.Group.UpdateGroupNameList();
                 }
             }
             EditorGUI.EndChangeCheck();
 
             Utils.GUILine();
-
             {
                 // お気に入り全解除
                 GUILayout.Label($"{LanguageData.GetText(m_pipeline.Setting.Language, TextEnum.FavoriteGroup)} : " +

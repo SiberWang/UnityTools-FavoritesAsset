@@ -53,6 +53,17 @@ namespace MasyoLab.Editor.FavoritesAsset
         CopyFavoriteGroupReplicationButton,
         WarningClear,
         AlreadyClear,
+        Normal,
+        FolderFullPath,
+        FullPath,
+        ShowNameType,
+    }
+    
+    enum ShowNameEnum
+    {
+        Normal,
+        FolderFullPath,
+        FullPath
     }
 
     struct LanguageData
@@ -91,7 +102,11 @@ namespace MasyoLab.Editor.FavoritesAsset
             { TextEnum.CopyFavoriteGroupPulldownDescription , "Select a group" },
             { TextEnum.CopyFavoriteGroupReplicationButton , "Duplicate" },
             { TextEnum.WarningClear, "<Please press again to confirm deletion>"},
-            { TextEnum.AlreadyClear, "<Successfully cleared !>"}
+            { TextEnum.AlreadyClear, "<Successfully cleared !>"},
+            { TextEnum.Normal, "Normal"},
+            { TextEnum.FolderFullPath, "Folder Full Path"},
+            { TextEnum.FullPath, "Full Path"},
+            { TextEnum.ShowNameType, "Show Name Type"},
         };
 
         private static IReadOnlyDictionary<TextEnum, string> TEXT_JA_DICT = new Dictionary<TextEnum, string>()
@@ -122,7 +137,11 @@ namespace MasyoLab.Editor.FavoritesAsset
             { TextEnum.CopyFavoriteGroupPulldownDescription , "グループを選択" },
             { TextEnum.CopyFavoriteGroupReplicationButton , "複製" },
             { TextEnum.WarningClear, "<削除を確認するためにもう一度押してください>"},
-            { TextEnum.AlreadyClear, "<正常にクリアしました !>"}
+            { TextEnum.AlreadyClear, "<正常にクリアしました !>"},
+            { TextEnum.Normal, "通常"},
+            { TextEnum.FolderFullPath, "フォルダフルパス"},
+            { TextEnum.FullPath, "フルパス"},
+            { TextEnum.ShowNameType, "名前の種類を表示"},
         };
         
         private static IReadOnlyDictionary<TextEnum, string> TEXT_TC_DICT = new Dictionary<TextEnum, string>()
@@ -153,7 +172,11 @@ namespace MasyoLab.Editor.FavoritesAsset
             { TextEnum.CopyFavoriteGroupPulldownDescription , "選擇一個群組" },
             { TextEnum.CopyFavoriteGroupReplicationButton , "複製" },
             { TextEnum.WarningClear, "<請再按一次以確認刪除>"},
-            { TextEnum.AlreadyClear, "<成功清除 !>"}
+            { TextEnum.AlreadyClear, "<成功清除 !>"},
+            { TextEnum.Normal, "通常"},
+            { TextEnum.FolderFullPath, "資料夾路徑"},
+            { TextEnum.FullPath, "完整路徑"},
+            { TextEnum.ShowNameType, "顯示名稱類型"},
         };
 
         public static string GetText(LanguageEnum lang, TextEnum text)

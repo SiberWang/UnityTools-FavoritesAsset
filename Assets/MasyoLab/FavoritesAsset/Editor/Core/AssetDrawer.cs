@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,22 +30,25 @@ namespace MasyoLab.Editor.FavoritesAsset
         /// <param name="onAction"></param>
         private static void DrawingSetting(IPipeline pipeline, AssetData info, UnityAction<GUIContent, GUIStyle> onAction = null)
         {
-            GUIContent content = null;
-            Texture assetIcon = null;
+            var infoName = GetResultInfoName(pipeline , info);
+            
+            GUIContent content   = null;
+            Texture    assetIcon = null;
 
             assetIcon = FavoritesAssetWindow.GetFavoritesAssetIcon?.Invoke(info.Path);
             if (assetIcon == null)
             {
                 assetIcon = AssetDatabase.GetCachedIcon(info.Path);
             }
+
             if (assetIcon == null)
             {
                 assetIcon = EditorGUIUtility.IconContent(CONST.ICON_ERRORICON).image;
-                content = new GUIContent("(missing asset) " + info.Name, assetIcon);
+                content = new GUIContent("(missing asset) " + infoName, assetIcon);
             }
             else
             {
-                content = new GUIContent(info.Name, assetIcon);
+                content = new GUIContent(infoName, assetIcon);
             }
 
             var style = BUTTON_STYLE.Inst;
@@ -189,6 +193,20 @@ namespace MasyoLab.Editor.FavoritesAsset
                 return true;
             }
             return false;
+        }
+        
+        private static string GetResultInfoName(IPipeline pipeline, AssetData info)
+        {
+            var settingShowFull = pipeline.Setting.ShowNameEnum;
+            return settingShowFull switch
+            {
+                ShowNameEnum.Normal => info.Name,
+                ShowNameEnum.FolderFullPath => AssetDatabase.IsValidFolder(info.Path)
+                    ? info.Path
+                    : info.Name,
+                ShowNameEnum.FullPath => info.Path,
+                _                     => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

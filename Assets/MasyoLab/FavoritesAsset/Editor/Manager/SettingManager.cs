@@ -56,6 +56,19 @@ namespace MasyoLab.Editor.FavoritesAsset
             }
         }
 
+        public ShowNameEnum ShowNameEnum
+        {
+            get => Data.ShowNameEnum;
+            set
+            {
+                if (Data.ShowNameEnum != value)
+                {
+                    Data.ShowNameEnum = value;
+                    SaveSettingData();
+                }
+            }
+        }
+
         public SettingManager(IPipeline pipeline) : base(pipeline) { }
 
         public void SaveSettingData()

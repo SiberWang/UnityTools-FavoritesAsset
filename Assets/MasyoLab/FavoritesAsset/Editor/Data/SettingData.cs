@@ -11,9 +11,11 @@ namespace MasyoLab.Editor.FavoritesAsset
     [System.Serializable]
     class SettingData
     {
-        public LanguageEnum Language = LanguageEnum.English;
-        public string IOTarget = string.Empty;
-        public string IOFileName = string.Empty;
+        public LanguageEnum Language     = LanguageEnum.English;
+        public string       IOTarget     = string.Empty;
+        public string       IOFileName   = string.Empty;
+        public bool         ShowFullPath = false;
+        public ShowNameEnum ShowNameEnum = ShowNameEnum.Normal;
     }
 }
 #endif
