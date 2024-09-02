@@ -18,7 +18,7 @@ namespace MasyoLab.Editor.FavoritesAsset
         public const string VERSION = "ver 1.5.0";
         public const string EDITOR_NAME = "Favorites Asset";
         public const string EDITOR_WINDOW_NAME = "Favorites Asset Window";
-        public const string MENU_ITEM = "Tools/" + EDITOR_WINDOW_NAME;
+        public const string MENU_ITEM = "Tools/" + EDITOR_WINDOW_NAME + " %G";
         public const string UNITY_EXT = ".unity";
         public const string JSON_EXT = "favorites";
         public const string SAVE = "Save";

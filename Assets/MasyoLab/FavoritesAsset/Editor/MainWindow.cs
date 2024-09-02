@@ -75,6 +75,12 @@ namespace MasyoLab.Editor.FavoritesAsset
         [MenuItem(CONST.MENU_ITEM)]
         private static void Init()
         {
+            if (HasOpenInstances<MainWindow>())
+            {
+                GetWindow<MainWindow>().Close();
+                return;
+            }
+            
             var window = GetWindow<MainWindow>(CONST.EDITOR_WINDOW_NAME);
             window.titleContent.image = EditorGUIUtility.IconContent(CONST.FAVORITE_ICON).image;
             m_instance = window;
